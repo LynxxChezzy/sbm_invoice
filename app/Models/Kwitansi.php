@@ -29,6 +29,10 @@ class Kwitansi extends Model
     {
         return $this->hasMany(UraianGas::class);
     }
+    public function saldoCustomers(): HasMany
+    {
+        return $this->hasMany(SaldoCustomer::class);
+    }
     protected static function boot()
     {
         parent::boot();

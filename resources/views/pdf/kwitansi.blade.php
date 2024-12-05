@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ $kwitansi->nomor }} - {{ $kwitansi->perusahaan->nama }}</title>
     <style>
         /*
 ! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com
@@ -788,9 +788,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                         <tr>
                             <td class="w-1/2 align-top">
                                 <div class="text-sm text-neutral-600">
-                                    <p class="font-bold">Supplier</p>
-                                    <p>Nama: {{ $kwitansi->perusahaan->nama }}</p>
-                                    <p>Email: {{ $kwitansi->perusahaan->email }}</p>
+                                    <p class="font-bold">Customer</p>
+                                    <p>{{ $kwitansi->perusahaan->nama }}</p>
+                                    <p>{{ $kwitansi->perusahaan->email }}</p>
                                 </div>
                             </td>
                             <td class="w-1/2 align-top text-right">
@@ -798,7 +798,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                                     <p class="font-bold">Kontak</p>
                                     @foreach ($kontakPerusahaan as $kontak)
                                         <p>{{ $kontak->nama }}</p>
-                                        <p>{{ $kontak->no_hp }}</p>
+                                        <p>+62 {{ $kontak->no_hp }}</p>
                                     @endforeach
                                 </div>
                             </td>

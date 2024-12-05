@@ -19,7 +19,7 @@ class RoleResource extends Resource
     }
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+        return static::getModel()::count() < 2 ? 'warning' : 'primary';
     }
     protected static ?string $navigationBadgeTooltip = 'Jumlah jabatan';
 
@@ -34,8 +34,12 @@ class RoleResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                    ->label('Nama Jabatan')
+                    ->placeholder('Masukkan Nama Jabatan')
+                    ->minlength(3)
+                    ->maxLength(45)
+                    ->columnSpanFull()
+                    ->required(),
             ]);
     }
 

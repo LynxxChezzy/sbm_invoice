@@ -30,7 +30,7 @@ class KwitansiResource extends Resource
     }
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+        return static::getModel()::count() < 10 ? 'warning' : 'primary';
     }
     protected static ?string $navigationBadgeTooltip = 'Jumlah Kwitansi';
     protected static ?string $model = Kwitansi::class;
@@ -160,8 +160,7 @@ class KwitansiResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('masa')
                     ->label('Masa Tenggang')
-                    ->date()
-                    ->sortable(),
+                    ->date(),
 
                 Auth::user()->hasRole('Staff')
                     ? Tables\Columns\TextColumn::make('followUp.id')
@@ -182,16 +181,7 @@ class KwitansiResource extends Resource
                     ->label('Total Harga')
                     ->prefix('Rp')
                     ->suffix('.00')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->numeric(),
             ])
             ->filters([
                 //

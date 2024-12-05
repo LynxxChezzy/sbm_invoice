@@ -20,7 +20,7 @@ class FollowUpResource extends Resource
     }
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+        return static::getModel()::count() < 3 ? 'warning' : 'primary';
     }
     protected static ?string $navigationBadgeTooltip = 'Jumlah User';
     protected static ?string $label = 'Tipe Follow Up';
@@ -33,8 +33,12 @@ class FollowUpResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
-                    ->required()
-                    ->maxLength(45),
+                    ->label('Nama Tipe Follow Up')
+                    ->placeholder('Masukkan Nama Tipe Follow Up')
+                    ->minLength(3)
+                    ->maxLength(45)
+                    ->columnSpanFull()
+                    ->required(),
             ]);
     }
 
