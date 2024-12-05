@@ -16,7 +16,7 @@ class SaldoCustomer extends Model
         'deskripsi',
         'nilai_saldo',
     ];
-    public function Kwitansi(): BelongsTo
+    public function kwitansi(): BelongsTo
     {
         return $this->belongsTo(Kwitansi::class, 'kwitansi_id', 'id');
     }

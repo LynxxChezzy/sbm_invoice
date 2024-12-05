@@ -19,11 +19,12 @@ class UserResource extends Resource
     }
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+        return static::getModel()::count() < 2 ? 'warning' : 'primary';
     }
     protected static ?string $navigationBadgeTooltip = 'Jumlah Tipe Gas';
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Kelola Pengguna';
+    protected static ?string $label = 'Pengguna';
     protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
@@ -32,18 +33,27 @@ class UserResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->label('Nama Pengguna')
+                    ->placeholder('Masukkan Nama Pengguna')
+                    ->minlength(3)
                     ->maxLength(45)
+                    ->columnSpanFull()
                     ->required(),
 
                 TextInput::make('email')
+                    ->label('Email Pengguna')
+                    ->placeholder('Masukkan Email Pengguna')
                     ->email()
-                    ->required()
-                    ->maxLength(45),
+                    ->minLength(5)
+                    ->maxLength(45)
+                    ->required(),
 
                 TextInput::make('password')
+                    ->label('Password Pengguna')
+                    ->placeholder('Masukkan Password Pengguna')
                     ->password()
-                    ->required()
-                    ->maxLength(255),
+                    ->minLength(8)
+                    ->maxLength(255)
+                    ->required(),
             ]);
     }
 
@@ -52,20 +62,11 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Pengguna')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Email Pengguna')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

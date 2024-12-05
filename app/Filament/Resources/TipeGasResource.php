@@ -18,7 +18,7 @@ class TipeGasResource extends Resource
     }
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 10 ? 'warning' : 'primary';
+        return static::getModel()::count() < 5 ? 'warning' : 'primary';
     }
     protected static ?string $navigationBadgeTooltip = 'Jumlah Tipe Gas';
     protected static ?string $model = TipeGas::class;
@@ -30,8 +30,12 @@ class TipeGasResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
-                    ->required()
-                    ->maxLength(45),
+                    ->label('Nama Tipe')
+                    ->placeholder('Masukkan Tipe Gas')
+                    ->minLength(3)
+                    ->maxLength(45)
+                    ->columnSpanFull()
+                    ->required(),
             ]);
     }
     public static function table(Table $table): Table
@@ -39,15 +43,8 @@ class TipeGasResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
+                    ->label('Tipe Gas')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -58,7 +55,7 @@ class TipeGasResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                    Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

@@ -22,13 +22,14 @@ class TipeTransaksiResource extends Resource
     }
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::count() > 1 ? 'warning' : 'primary';
+        return static::getModel()::count() < 1 ? 'warning' : 'primary';
     }
     protected static ?string $navigationBadgeTooltip = 'Jumlah Tipe Transaksi';
 
     protected static ?string $model = TipeTransaksi::class;
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = 'Tipe Transaksi';
 
     protected static ?string $navigationGroup = 'Kelola Data';
     protected static ?int $navigationSort = 7;
@@ -38,8 +39,12 @@ class TipeTransaksiResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
-                    ->required()
-                    ->maxLength(20),
+                    ->label('Nama Tipe Transaksi')
+                    ->placeholder('Masukkan Nama Tipe Transaksi')
+                    ->minLength(3)
+                    ->maxLength(20)
+                    ->columnSpanFull()
+                    ->required(),
             ]);
     }
 
